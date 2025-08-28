@@ -54,6 +54,7 @@ public class Usuario {
     }
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Anotacao> anotacoes;
 
     public Set<Anotacao> getAnotacoes() {

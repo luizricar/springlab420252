@@ -24,6 +24,7 @@ public class Autorizacao {
     private String nome;
 
     @ManyToMany(mappedBy = "autorizacoes", fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Usuario> usuarios;
 
     public Long getId(){
