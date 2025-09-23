@@ -13,7 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "ant-anotacao")
+@Table(name = "ant_anotacao")
 public class Anotacao {
 
     @Id
@@ -21,7 +21,7 @@ public class Anotacao {
     @Column(name = "ant_id")
     private Long id;
     
-    @Column(name = "ant-texto")
+    @Column(name = "ant_texto")
     private String texto;
 
     @Column(name = "ant_data_hora")

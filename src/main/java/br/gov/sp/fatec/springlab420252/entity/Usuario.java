@@ -1,6 +1,9 @@
 package br.gov.sp.fatec.springlab420252.entity;
 
+import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,9 +22,30 @@ import jakarta.persistence.Table;
 public class Usuario {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usr_id")
     private Long id;
+
+    @Column(name = "usr_nome")
+    private String nome;
+
+    @Column(name = "usr_senha")
+    private String senha;
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Set<Anotacao> anotacoes;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "uau_usuario_autorizacao", 
+        joinColumns = {@JoinColumn(name = "usr_id")},
+        inverseJoinColumns = {@JoinColumn(name = "aut_id")} )
+    private Set<Autorizacao> autorizacoes;
+
+    public Usuario() {
+        setAnotacoes(new HashSet<Anotacao>());
+        setAutorizacoes(new HashSet<Autorizacao>());
+    }
 
     public Long getId() {
         return id;
@@ -31,9 +55,6 @@ public class Usuario {
         this.id = id;
     }
 
-    @Column(name = "usr_nome")
-    private String nome;
-
     public String getNome() {
         return nome;
     }
@@ -41,9 +62,6 @@ public class Usuario {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    @Column(name = "usr_senha")
-    private String senha;
 
     public String getSenha() {
         return senha;
@@ -53,10 +71,6 @@ public class Usuario {
         this.senha = senha;
     }
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Set<Anotacao> anotacoes;
-
     public Set<Anotacao> getAnotacoes() {
         return anotacoes;
     }
@@ -65,20 +79,12 @@ public class Usuario {
         this.anotacoes = anotacoes;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "uau_usuario_autorizacao",
-        joinColumns = {@JoinColumn(name = "usr_id")},
-        inverseJoinColumns = {@JoinColumn(name = "aut_id")})
-    private Set<Autorizacao> autorizacoes;
-
     public Set<Autorizacao> getAutorizacoes() {
         return autorizacoes;
     }
 
     public void setAutorizacoes(Set<Autorizacao> autorizacoes) {
         this.autorizacoes = autorizacoes;
-    }
-
+    } 
     
-
 }

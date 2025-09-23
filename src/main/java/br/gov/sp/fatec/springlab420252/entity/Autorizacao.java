@@ -1,6 +1,9 @@
 package br.gov.sp.fatec.springlab420252.entity;
 
+import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,10 +30,14 @@ public class Autorizacao {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Usuario> usuarios;
 
-    public Long getId(){
+    public Autorizacao() {
+        setUsuarios(new HashSet<Usuario>());
+    }
+
+    public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -39,16 +46,16 @@ public class Autorizacao {
         return nome;
     }
 
-    public void setNome (String nome){
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
     public Set<Usuario> getUsuarios() {
         return usuarios;
     }
-        
 
-    public void setUsuarios (Set<Usuario> usuarios) {
+    public void setUsuarios(Set<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
+    
 }
